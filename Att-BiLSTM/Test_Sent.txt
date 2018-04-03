@@ -1,0 +1,3 @@
+A group of boys in a yard is playing and a man is standing in the background	The young boys are playing outdoors and the man is smiling nearby	3.7	[0.67004806]
+A brown dog is attacking another animal in front of the tall man in pants	A brown dog is attacking another animal in front of the man in pants	4.9	[0.9037557]
+A boy is playing a game with wooden blocks	Some cheerleaders are dancing	1	[0.23228376]
