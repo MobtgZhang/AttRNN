@@ -89,7 +89,7 @@ class Att_Bi(nn.Module):
         return self.sigmoid(out)
     def initial_hidden(self):
         if self.algorithm == "lstm":
-            out =  (Variable(torch.zeros(2,1,self.hidden_in_dim)),Variable(torch.zeros(2,1,self.hidden_in_dim)))
+            out =  [Variable(torch.zeros(2,1,self.hidden_in_dim)),Variable(torch.zeros(2,1,self.hidden_in_dim))]
         elif self.algorithm == "gru":
             out =  Variable(torch.zeros(2,1,self.hidden_in_dim))
         if torch.cuda.is_available():
@@ -114,16 +114,12 @@ class Att_SumBiGRU(nn.Module):
         # GRU Layer
         self.gru = nn.GRU(self.embedding_dim,self.hidden_dim,num_layers = 1,
                                 bias = True,batch_first = True,dropout = 0.2,bidirectional = True)
-        self.ones_matrix = Variable(torch.ones(1,self.temp_dim))
-        if torch.cuda.is_available():
-            self.ones_matrix.cuda()
         self.linear_second = nn.Linear(self.hidden_dim,self.temp_dim)
         self.relu = nn.ReLU()
         self.linear = nn.Linear(4,1)
         self.sigmoid = nn.Sigmoid()
         if torch.cuda.is_available():
             self.cuda()
-        self.init_weight()
     def forward(self,sentA,sentB,hidden):
         embA = self.embedding(sentA)
         embB = self.embedding(sentB)
@@ -139,7 +135,9 @@ class Att_SumBiGRU(nn.Module):
         ht_rightB = htB[1].view(1,self.hidden_dim)
         #-------------------------------------------------------------------------------
         # The first hidden Layer Attention Layer
-        hf = self.ones_matrix
+        hf = Variable(torch.ones(1,self.temp_dim))
+        if torch.cuda.is_available():
+            hf = hf.cuda()
         #-------------------------------------------------------------------------------
         # The second hidden Layer
         ht_MA = torch.abs(ht_leftA - ht_rightA)
