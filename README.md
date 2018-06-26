@@ -22,7 +22,6 @@ pip install matplotlib
 This downloads the following data:
 
   - [SICK dataset](http://alt.qcri.org/semeval2014/task1/index.php?id=data-and-tools) (semantic relatedness task)
-  - [Stanford Sentiment Treebank](http://nlp.stanford.edu/sentiment/index.html) (sentiment classification task)
 
 ### Semantic Relatedness
 
